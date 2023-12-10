@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main>
+<!-- переменная row -->
+<h1>{{row.title}}</h1>
+<img src="{{row.image.url}}" alt="">
+<h1>{{row.created_at}}</h1>
+<br>
+<!-- список rows -->
+{% for i in rows %}
+    <h1>{{i.title}}</h1>
+    <br>
+    <img src="{{i.image.url}}" alt="">
+    <br>
+    <h1>{{i.created_at}}</h1>
+    <br>
+    <h1>{{i.text}}</h1>
+{% endfor %}
+
+
+<!-- список comments -->
+<section class="contact-section">
+    <h3>Отправить комм</h3>
+<form action="{% url 'comments' row.id %}" method = "post" class="contact-form">
+    {% csrf_token %}
+    <div class="form-group form-group-name">
+      <label for="name" class="sr-only">Name</label>
+      <input type="text" name="user" id="user" class="form-control" placeholder="NAME">
+    </div>
+    <div class="form-group">
+        <label for="message" class="sr-only">Message</label>
+        <textarea name="message" id="message" class="form-control" placeholder="MESSAGE" rows="5"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary form-submit-btn">SEND MESSAGE</button>
+</form>
+</section>
+
+
+{% for i in comments %}
+    <section class="contact-section">
+        <p class="section-title">{{i.created_at}}</p>
+        <p class="mb-4">{{i.user}}: {{i.message}}</p>
+    </section>
+{% endfor %}
+
+</main>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+        <main>
+            <section class="blog-section">
+                <h2 class="section-title">LATEST NEWS</h2>
+
+                <div class="blog-posts-wrapper">
+                    {% for row in blogs %}
+                    <article class="blog-post">
+                        <a href="{% url 'blogDetails' row.id %}" class="blog-post-link">
+                            <img src="{{row.image.url}}" alt="news 1" class="blog-post-thumbnail">
+                            <h5 class="blog-post-title">{{row.title}}</h5>
+
+                        </a>
+                        <p class="blog-post-meta">
+                            <span class="post-published-date">{{row.created_at}}</span>
+                            <a href="{% url 'blogDetails' row.id %}" class="post-comments">3 COMMENTS</a>
+                        </p>
+                    </article>
+                    {% endfor %}
+                </div>
+            </section>
+            <footer>Live Resume @ <a href="https://www.bootstrapdash.com" target="_blank" rel="noopener noreferrer">BootstrapDash</a>. All Rights Reserved 2020</footer>
+        </main>
+   {% endblock %}
